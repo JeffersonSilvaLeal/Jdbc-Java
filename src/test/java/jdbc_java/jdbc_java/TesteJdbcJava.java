@@ -1,6 +1,5 @@
 package jdbc_java.jdbc_java;
 
-import java.nio.file.spi.FileSystemProvider;
 import java.util.List;
 
 import org.junit.Test;
@@ -10,7 +9,7 @@ import model.UserJdbcJava;
 
 public class TesteJdbcJava {
 
-	// testando conexão do banco
+	// Insert
 	@Test
 	public void insert() {
 		UserJdbcDao userJdbcDao = new UserJdbcDao();
@@ -23,6 +22,7 @@ public class TesteJdbcJava {
 		userJdbcDao.salvar(userJdbcJava);
 	}
 
+	// list
 	@Test
 	public void Listar() {
 
@@ -41,6 +41,7 @@ public class TesteJdbcJava {
 
 	}
 	
+	// Buscar
 	@Test
 	public void buscar() {
 		
@@ -53,8 +54,24 @@ public class TesteJdbcJava {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	// Atualizar
+	@Test
+	public void atualizar() {
 		
-		
+		try {
+			UserJdbcDao dao = new UserJdbcDao();
+			
+			UserJdbcJava userJdbcJava = dao.buscar(4L);
+			
+			userJdbcJava.setNome("Nome Atualizado");
+			
+			dao.atualizar(userJdbcJava);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

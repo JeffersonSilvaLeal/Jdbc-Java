@@ -19,6 +19,7 @@ public class UserJdbcDao {
 		connection = SingleConnection.getConnection();
 	}
 
+	// Salvar
 	public void salvar(UserJdbcJava userJdbcJava) {
 
 		try {
@@ -41,11 +42,12 @@ public class UserJdbcDao {
 		}
 	}
 
+	// Litar
 	public List<UserJdbcJava> listar() {
 		// Instância a lista
 		List<UserJdbcJava> list = new ArrayList<UserJdbcJava>();
 
-		// Sql 
+		// Sql
 		String sql = "select * from userjdbcjava";
 
 		try {
@@ -62,7 +64,7 @@ public class UserJdbcDao {
 				userJdbcJava.setId(resultado.getLong("id"));
 				userJdbcJava.setNome(resultado.getString("nome"));
 				userJdbcJava.setEmail(resultado.getString("email"));
-				
+
 				// Adiciona a lista
 				list.add(userJdbcJava);
 			}
@@ -70,17 +72,16 @@ public class UserJdbcDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		// retorna a lista
 		return list;
 	}
-	
-	
-	
+
+	// Buscar Apenas um Objeto
 	public UserJdbcJava buscar(Long id) {
 		UserJdbcJava retorno = new UserJdbcJava();
 
-		// Sql 
+		// Sql
 		String sql = "select * from userjdbcjava where id = " + id;
 
 		try {
@@ -97,14 +98,38 @@ public class UserJdbcDao {
 				retorno.setId(resultado.getLong("id"));
 				retorno.setNome(resultado.getString("nome"));
 				retorno.setEmail(resultado.getString("email"));
-				
+
 			}
 			// trata os erros
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		// retorna a lista
 		return retorno;
 	}
+
+	// Atualizar
+	public void atualizar(UserJdbcJava userJdbcJava) {
+
+		
+		try {
+			// SQL
+			String sql = "update userjdbcjava set nome = ? where id = " + userJdbcJava.getId();
+
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, userJdbcJava.getNome());
+			preparedStatement.execute();
+			connection.commit();
+		
+		} catch (SQLException e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+	}
+
 }
