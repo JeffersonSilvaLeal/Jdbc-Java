@@ -2,6 +2,14 @@
 /*insert*/
 insert into userjdbcjava (nome, email) values (?,?);
 
+/* Cria a tabela userjdbcjava*/
+create table userjdbcjava (
+   id bigint not null,
+	nome character varying(255),
+	email character varying (255),
+	constraint user_PK primary key(id)
+)
+
 /* Busca por Id*/
 select * from userjdbcjava where id =;
 
@@ -44,7 +52,7 @@ create table telefoneuser
   
 CREATE SEQUENCE IF NOT EXISTS public.user_telefone_seq
     INCREMENT 1
-    START 7
+    START 1
     MINVALUE 1
     MAXVALUE 9223372036854775807
     CACHE 1;
@@ -55,3 +63,6 @@ ALTER SEQUENCE public.user_telefone_seq
     /* Implementando sequencia no id telefoneuser*/
     ALTER TABLE IF EXISTS public.telefoneuser
    ALTER column id SET DEFAULT nextval('user_telefone_seq'::regclass);
+   
+   /* Insert de Telefone*/
+   INSERT INTO telefoneuser(numero, tipo, userpessoa) VALUES (?, ?, ?)

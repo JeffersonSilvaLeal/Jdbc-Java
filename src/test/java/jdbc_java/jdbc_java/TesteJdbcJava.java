@@ -1,11 +1,11 @@
 package jdbc_java.jdbc_java;
 
-import java.sql.Connection;
 import java.util.List;
 
 import org.junit.Test;
 
 import dao.UserJdbcDao;
+import model.Telefone;
 import model.UserJdbcJava;
 
 public class TesteJdbcJava {
@@ -84,5 +84,21 @@ public class TesteJdbcJava {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	
+	
+	// Salvar telefone
+	@Test
+	public void insertTelefone() {
+		
+		Telefone telefone = new Telefone();
+		telefone.setNumero("11 92584-2561");
+		telefone.setTipo("Celular");
+		telefone.setUsuario(2L);
+		
+		UserJdbcDao dao = new UserJdbcDao();
+		dao.salvarTelefone(telefone);
+		
 	}
 }
