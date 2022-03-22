@@ -28,7 +28,7 @@ public class UserJdbcDao {
 			String sql = "insert into userjdbcjava (nome, email) values (?,?)";
 			// Prepara ele
 			PreparedStatement insert = connection.prepareStatement(sql);
-			
+
 			// Dados
 			insert.setString(1, userJdbcJava.getNome());
 			insert.setString(2, userJdbcJava.getEmail());
@@ -112,7 +112,6 @@ public class UserJdbcDao {
 	// Atualizar
 	public void atualizar(UserJdbcJava userJdbcJava) {
 
-		
 		try {
 			// SQL
 			String sql = "update userjdbcjava set nome = ? where id = " + userJdbcJava.getId();
@@ -121,7 +120,7 @@ public class UserJdbcDao {
 			preparedStatement.setString(1, userJdbcJava.getNome());
 			preparedStatement.execute();
 			connection.commit();
-		
+
 		} catch (SQLException e) {
 			try {
 				connection.rollback();
@@ -132,4 +131,23 @@ public class UserJdbcDao {
 		}
 	}
 
+	// Delete
+	public void deletar(Long id) {
+		try {
+
+			// SQL
+			String sql = "delete from userjdbcjava where id = " + id;
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.execute();
+			connection.commit();
+			
+		} catch (Exception e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+	}
 }
