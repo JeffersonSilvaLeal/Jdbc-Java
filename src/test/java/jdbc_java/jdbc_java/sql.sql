@@ -95,3 +95,6 @@ ALTER SEQUENCE public.user_telefone_seq
    inner join userjdbcjava as users
    on fone.userpessoa = users.id
    where users.id = 1
+   
+   /* Deletenado em cascata deletando dados da tabela telefone user*/
+   delete from telefoneuser where userpessoa = 2

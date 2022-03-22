@@ -216,4 +216,32 @@ public class UserJdbcDao {
 			e.printStackTrace();
 		}
 	}
+
+	public void deleteFonePorUsuario(Long idUser) {
+		
+		String sqlFone = " delete from telefoneuser where userpessoa = " + idUser;
+		String sqlUser = " delete from userjdbcjava where id = " + idUser;
+		
+		try {
+			
+			// Deleta Primeiro a entidade filha
+			PreparedStatement preparedStatement = connection.prepareStatement(sqlFone);
+			preparedStatement.executeUpdate();
+			connection.commit();
+			
+			// Deleta a entidade Pai
+			preparedStatement = connection.prepareStatement(sqlUser);
+			preparedStatement.executeUpdate();
+			connection.commit();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+	}
 }

@@ -117,4 +117,13 @@ public class TesteJdbcJava {
 			
 		}
 	}
+	
+	
+	@Test
+	public void deleteUserFone() {
+		
+		UserJdbcDao dao = new UserJdbcDao();
+		dao.deleteFonePorUsuario(1L);
+		System.out.println("Excluido com sucesso!!");
+	}
 }
