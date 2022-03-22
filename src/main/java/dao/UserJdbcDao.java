@@ -19,19 +19,19 @@ public class UserJdbcDao {
 		connection = SingleConnection.getConnection();
 	}
 
-	// Salvar
+	// Salvar gera o id automatico através de um sequênciador cirado no banco de dados!!
 	public void salvar(UserJdbcJava userJdbcJava) {
 
 		try {
 
 			// Sql
-			String sql = "insert into userjdbcjava (id, nome, email) values (?,?,?)";
+			String sql = "insert into userjdbcjava (nome, email) values (?,?)";
 			// Prepara ele
 			PreparedStatement insert = connection.prepareStatement(sql);
+			
 			// Dados
-			insert.setLong(1, userJdbcJava.getId());
-			insert.setString(2, userJdbcJava.getNome());
-			insert.setString(3, userJdbcJava.getEmail());
+			insert.setString(1, userJdbcJava.getNome());
+			insert.setString(2, userJdbcJava.getEmail());
 			// Executa o insert
 			insert.execute();
 			// Salva no banco

@@ -15,7 +15,6 @@ public class TesteJdbcJava {
 		UserJdbcDao userJdbcDao = new UserJdbcDao();
 		UserJdbcJava userJdbcJava = new UserJdbcJava();
 
-		userJdbcJava.setId(6L);
 		userJdbcJava.setNome("ueldon");
 		userJdbcJava.setEmail("Ueldon@gmail.com");
 
