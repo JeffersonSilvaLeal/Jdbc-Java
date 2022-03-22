@@ -66,3 +66,32 @@ ALTER SEQUENCE public.user_telefone_seq
    
    /* Insert de Telefone*/
    INSERT INTO telefoneuser(numero, tipo, userpessoa) VALUES (?, ?, ?)
+   
+   
+   /* inner Join Tras Todos os dados da tabelas Usuario e Telefone*/
+   select * from telefoneuser as fone
+   inner join userjdbcjava as users
+   on fone.userpessoa = users.id
+   
+   /* Inner Join Trás o número e nome da pessoa*/
+   select numero,nome from telefoneuser as fone
+   inner join userjdbcjava as users
+   on fone.userpessoa = users.id
+   
+   /* Inner Join traz o numero e nome da tabela telefone e todos as colunas da tabela usuário*/
+   select numero,nome,* from telefoneuser as fone
+   inner join userjdbcjava as users
+   on fone.userpessoa = users.id
+   
+   
+   /* Inner Join Filtra por Id especifico*/
+   select * from telefoneuser as fone
+   inner join userjdbcjava as users
+   on fone.userpessoa = users.id
+   where users.id = 1
+   
+   /* Inner Join Apenas um campo*/
+   select nome from telefoneuser as fone
+   inner join userjdbcjava as users
+   on fone.userpessoa = users.id
+   where users.id = 1

@@ -5,6 +5,7 @@ import java.util.List;
 import org.junit.Test;
 
 import dao.UserJdbcDao;
+import model.BeanUserFone;
 import model.Telefone;
 import model.UserJdbcJava;
 
@@ -47,7 +48,7 @@ public class TesteJdbcJava {
 
 		UserJdbcDao dao = new UserJdbcDao();
 		try {
-			UserJdbcJava userJdbcJava = dao.buscar(6L);
+			UserJdbcJava userJdbcJava = dao.buscarPorId(6L);
 			System.out.println(userJdbcJava);
 
 		} catch (Exception e) {
@@ -63,7 +64,7 @@ public class TesteJdbcJava {
 		try {
 			UserJdbcDao dao = new UserJdbcDao();
 
-			UserJdbcJava userJdbcJava = dao.buscar(4L);
+			UserJdbcJava userJdbcJava = dao.buscarPorId(4L);
 
 			userJdbcJava.setNome("Nome Atualizado");
 
@@ -100,5 +101,20 @@ public class TesteJdbcJava {
 		UserJdbcDao dao = new UserJdbcDao();
 		dao.salvarTelefone(telefone);
 		
+	}
+	
+	
+	@Test
+	public void carregarFonesUser() {
+		
+		UserJdbcDao dao = new UserJdbcDao();
+		
+		List<BeanUserFone>beanUserFones = dao.listaUserFone(1L);
+		
+		for (BeanUserFone beanUserFone : beanUserFones) {
+			System.out.println(beanUserFone);
+			System.out.println("---------------------");
+			
+		}
 	}
 }

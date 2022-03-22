@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import conexao.jdbc.SingleConnection;
+import model.BeanUserFone;
 import model.Telefone;
 import model.UserJdbcJava;
 
@@ -103,7 +104,7 @@ public class UserJdbcDao {
 	}
 
 	// Buscar Apenas um Objeto
-	public UserJdbcJava buscar(Long id) {
+	public UserJdbcJava buscarPorId(Long id) {
 		UserJdbcJava retorno = new UserJdbcJava();
 
 		// Sql
@@ -132,6 +133,42 @@ public class UserJdbcDao {
 
 		// retorna a lista
 		return retorno;
+	}
+	
+	
+	public List<BeanUserFone> listaUserFone(Long idUser){
+		
+		List<BeanUserFone> beanUserFones = new ArrayList<BeanUserFone>();
+		
+		String sql = "  select nome, numero, email from telefoneuser as fone ";
+		sql += " inner join userjdbcjava as users ";
+		sql += " on fone.userpessoa = users.id ";
+		sql += "  where users.id = " + idUser;
+		
+		
+		try {
+			PreparedStatement statement = connection.prepareStatement(sql);
+			ResultSet resultSet = statement.executeQuery();
+			
+			while (resultSet.next()) {
+				BeanUserFone userFone = new BeanUserFone();
+				
+				userFone.setEmail(resultSet.getString("nome"));
+				userFone.setNome(resultSet.getString("numero"));
+				userFone.setNumero(resultSet.getString("email"));
+				
+				beanUserFones.add(userFone);
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		return beanUserFones;
+		
 	}
 
 	// Atualizar
